@@ -19,7 +19,7 @@ const Home = () => {
                             </div>
 
                             <h1 className="text-4xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1]">
-                                Find Blood Donors <span className="text-primary">In Your Area</span>
+                                Find Emergency Blood Donors <span className="text-primary">Near You in India</span>
                             </h1>
 
                             <p className="text-lg text-slate-600 leading-relaxed">
@@ -75,8 +75,10 @@ const Home = () => {
             <section className="py-24 bg-white">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16 space-y-4">
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900">How LifeFlow Works</h2>
-                        <p className="text-slate-500 max-w-xl mx-auto text-lg">Simple, fast, and reliable way to connect with blood donors.</p>
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900">How to Find a Blood Donor Fast</h2>
+                        <p className="text-slate-500 max-w-xl mx-auto text-lg">
+                            LifeFlow is the fastest way to <strong>find blood donors in India</strong>. Follow these simple steps to connect with verified donors near you.
+                        </p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
@@ -95,6 +97,39 @@ const Home = () => {
                             title="Instant Contact"
                             desc="Call or message donors directly via phone or WhatsApp with one click."
                         />
+                    </div>
+
+                    <div className="mt-20 text-center">
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-12">Why LifeFlow is the Best Blood Donation Platform in India</h2>
+                        <div className="grid md:grid-cols-3 gap-8 text-left">
+                            <div className="space-y-4">
+                                <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                    <Activity className="h-5 w-5 text-primary" />
+                                    Real-time Donor Availability
+                                </h3>
+                                <p className="text-slate-600">
+                                    Our advanced algorithm helps you <strong>find emergency blood donors</strong> who are currently active and available to donate. No more calling outdated numbers.
+                                </p>
+                            </div>
+                            <div className="space-y-4">
+                                <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                    <ShieldCheck className="h-5 w-5 text-primary" />
+                                    100% Free & Direct Contact
+                                </h3>
+                                <p className="text-slate-600">
+                                    We believe in saving lives, not making profits. Connect directly with donors for <strong>A+, O+, B-</strong>, and other blood groups without any middleman.
+                                </p>
+                            </div>
+                            <div className="space-y-4">
+                                <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                    <Droplet className="h-5 w-5 text-primary" />
+                                    Verified Donors in Major Cities
+                                </h3>
+                                <p className="text-slate-600">
+                                    Whether you need <strong>blood donors in Mumbai, Delhi, or Bangalore</strong>, our network of verified volunteers is ready to help in medical emergencies.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
