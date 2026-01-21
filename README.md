@@ -1,4 +1,4 @@
-# 🩸 BloodLink — Smart Blood Donor Finder
+# 🩸 life flow — Smart Blood Donor Finder
 
 A modern, fast, and secure web application to connect blood donors with those in need. Built with React 18, TailwindCSS, and Firebase.
 
