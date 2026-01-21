@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    match /donors/{donorId} {
+      // Public Read: Allow if donor is active
+      // Admin Read: Allow always if authenticated
+      allow read: if (resource.data.active == true) || isAuthenticated();
+      
+      // Write (Create, Update, Delete): Only Authenticated Admins
+      allow write: if isAuthenticated();
+    }
+  }
+}
