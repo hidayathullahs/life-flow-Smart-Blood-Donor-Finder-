@@ -30,17 +30,23 @@ const SearchPage = () => {
             // Fetch all active donors then filter client side for better UX with date logic
             const donorList = await donorService.getAllActiveDonors();
 
-            // Mocking 'priority' data for demo if not present (This enables the Elite badges)
+            // Use strict real data (defaults to 0 or false if missing)
             const enrichedDonors = donorList.map(d => ({
                 ...d,
-                donationCount: d.donationCount || Math.floor(Math.random() * 20),
-                isVerified: d.isVerified !== undefined ? d.isVerified : Math.random() > 0.3
+                donationCount: d.donationCount !== undefined ? d.donationCount : 0,
+                isVerified: d.isVerified !== undefined ? d.isVerified : false
             }));
 
             setDonors(enrichedDonors);
         } catch (error) {
             console.error("Error fetching donors:", error);
-            toast.error("Failed to load donors.");
+            if (error?.code === 'failed-precondition') {
+                toast.error("Database setup incomplete. Index missing.");
+            } else if (error?.code === 'permission-denied') {
+                toast.error("Permission denied. Check rules.");
+            } else {
+                toast.error(`Failed to load donors: ${error.message}`);
+            }
         } finally {
             setLoading(false);
         }

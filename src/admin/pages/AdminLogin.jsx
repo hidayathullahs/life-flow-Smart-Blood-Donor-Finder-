@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { authService } from '@/services/authService';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Lock, Droplet } from 'lucide-react';
+import { Lock, Droplet, ArrowLeft } from 'lucide-react';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('');
@@ -36,7 +36,10 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-slate-50 px-4">
+        <div className="flex items-center justify-center min-h-screen bg-slate-50 px-4 relative">
+            <Link to="/" className="absolute top-4 left-4 md:top-8 md:left-8 flex items-center gap-2 text-slate-600 hover:text-primary transition-colors font-medium text-sm md:text-base">
+                <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" /> Back to Home
+            </Link>
             <div className="absolute top-0 left-0 w-full h-1/2 bg-primary/10 -z-10 rounded-b-[30%]" />
 
             <Card className="w-full max-w-md shadow-2xl border-0 rounded-3xl overflow-hidden">
@@ -56,7 +59,7 @@ const AdminLogin = () => {
                             <Input
                                 id="email"
                                 type="email"
-                                placeholder="admin@lifeflow.com"
+                                placeholder="admin@smartbloodlife.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
@@ -65,7 +68,7 @@ const AdminLogin = () => {
                         </div>
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                                <Label htmlFor="password" classname="text-slate-700 font-medium">Password</Label>
+                                <Label htmlFor="password" className="text-slate-700 font-medium">Password</Label>
                                 <Link to="/admin/forgot-password" className="text-xs font-semibold text-primary hover:text-red-700 hover:underline">
                                     Forgot Password?
                                 </Link>

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { db } from '@/lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { isEligibleToDonate, calculateDaysSinceDonation } from '@/utils/eligibility';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Phone, MessageCircle, MapPin, Calendar, Clock, ArrowLeft, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, Calendar, Clock, ArrowLeft, AlertTriangle, ShieldCheck, Share2, Timer } from 'lucide-react';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
+import BloodCompatibilityChart from '@/components/BloodCompatibilityChart';
+import ShareButton from '@/components/ShareButton';
 
 const DonorDetails = () => {
     const { id } = useParams();
@@ -46,14 +48,18 @@ const DonorDetails = () => {
         <div className="min-h-screen bg-gray-50 pb-20">
             {/* Header / Breadcrumb */}
             <div className="bg-white border-b py-4">
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto px-4 flex items-center justify-between">
                     <Link to="/search" className="inline-flex items-center text-sm text-gray-500 hover:text-primary">
                         <ArrowLeft className="h-4 w-4 mr-1" /> Back to Search
                     </Link>
+                    <ShareButton
+                        title={`${donor.name} - ${donor.bloodGroup} Blood Donor`}
+                        text={`Need ${donor.bloodGroup} blood? Contact this verified donor in ${donor.city} through SmartBloodLife.`}
+                    />
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8 space-y-8">
                 <Card className="max-w-2xl mx-auto overflow-hidden shadow-lg border-t-8 border-t-primary">
                     <div className="bg-gradient-to-r from-red-50 to-white p-8 pb-4">
                         <div className="flex justify-between items-start">
@@ -81,7 +87,7 @@ const DonorDetails = () => {
                                 ) : (
                                     <AlertTriangle className="h-6 w-6 text-amber-600 mt-0.5" />
                                 )}
-                                <div>
+                                <div className="flex-1">
                                     <h3 className={`font-bold ${isEligible ? 'text-green-800' : 'text-amber-800'}`}>
                                         {isEligible ? "Medically Eligible to Donate" : "Currently Not Eligible"}
                                     </h3>
@@ -91,6 +97,23 @@ const DonorDetails = () => {
                                             : `Last donated ${daysSince} days ago. Creating a standard 90-day gap is recommended for donor safety.`
                                         }
                                     </p>
+                                    {/* Eligibility Countdown for Ineligible Donors */}
+                                    {!isEligible && daysSince !== null && (
+                                        <div className="mt-3 flex items-center gap-2 bg-white/50 rounded-lg p-3 border border-amber-200">
+                                            <Timer className="h-5 w-5 text-amber-600" />
+                                            <div>
+                                                <span className="text-sm font-semibold text-amber-800">
+                                                    Eligible in {90 - daysSince} days
+                                                </span>
+                                                <div className="w-32 h-2 bg-amber-200 rounded-full mt-1.5 overflow-hidden">
+                                                    <div
+                                                        className="h-full bg-amber-500 rounded-full transition-all duration-500"
+                                                        style={{ width: `${Math.min((daysSince / 90) * 100, 100)}%` }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -130,9 +153,15 @@ const DonorDetails = () => {
                         </div>
                     </CardContent>
                 </Card>
+
+                {/* Blood Compatibility Chart */}
+                <div className="max-w-2xl mx-auto">
+                    <BloodCompatibilityChart bloodType={donor.bloodGroup} />
+                </div>
             </div>
         </div>
     );
 };
 
 export default DonorDetails;
+
